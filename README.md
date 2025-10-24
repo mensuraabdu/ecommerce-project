@@ -1,137 +1,160 @@
-# E-Commerce Data Analysis - Google Data Analytics Capstone
-## Step 1: E-Commerce Data Cleaning Process
+**E-Commerce Revenue Analysis - Google Data Analytics Capstone**
+This repository contains my Google Data Analytics Capstone project, analyzing e-commerce data to identify key revenue drivers for marketing and inventory strategies, following the Ask, Prepare, Process, Analyze, Share, and Act framework.
+**Project Overview**
+The project analyzes a merged e-commerce dataset (~2,950 rows, 40 columns) combining Sales, Customer, and Product Details to answer specific business questions and provide actionable insights.
 
-**Objective**: Clean and standardize Sales, Customer, and Product datasets to produce a unified merged_data.csv for analysis.
+**Ask**
+Business Problem: Identify key drivers of e-commerce revenue to optimize inventory, marketing, and sales strategies.
+**Problem Questions:**
+- Which products and categories generate the most revenue?
+- Which customer segments (age, gender, location) contribute the most to revenue?
+- Do discounts or subscription status increase purchase amounts or repeat purchases?
+- How does customer age influence purchasing patterns for top categories?
+- Which regions show potential for targeted marketing based on revenue distribution?
 
-**Dataset**:
-- Sales Data (~3,000 rows, columns: user_id, product_id, Interaction Type, Timestamp, etc.).
-- Customer Details (~3,000 rows, ~18 columns: customer_id, Age, Gender, Location, etc.).
-- Product Details (product details x.xlsx, ~10,002 rows, ~24 columns: unique_id, product_name, selling_price, etc.).
+**Objective:** Provide insights to prioritize high-revenue products/categories, target key customer segments, and optimize marketing strategies.
 
-**Process**:
+**Prepare**
+**Data Sources:**
+- Sales Data: ~3,000 rows; columns: user_id, product_id, Interaction Type, Timestamp, etc.
+- Customer Details: ~3,000 rows, ~18 columns; columns: customer_id, Age, Gender, Location, etc.
+- Product Details: ~10,002 rows, ~24 columns; columns: unique_id, product_name, selling_price, etc.
+- Process: Merged datasets into merged_data.csv and merged_data.xlsx using merge_ecommerce_datasets_excel.ipynb.
+**Challenges:**
+- Inconsistent column names (e.g., user_id vs. Customer ID).
+- Solution: Standardized to Customer ID and Product ID using Python.
 
-**Sales Data:**
+**Process**
+-**Data Cleaning:**
+
+- **Sales Data:**
 - Filtered for Interaction Type = purchase (Google Sheets).
-- Removed unnecessary columns (e.g., “Unnamed: 4”) (Google Sheets).
-- Renamed user_id to Customer ID, product_id to Product ID (Google Sheets).
-- Handled missing values: Replaced blanks in Interaction Type with “unknown”; removed rows missing Customer ID or Product ID (Google Sheets).
-- Standardized Timestamp: Removed spaces with TRIM(); converted to date-time (Google Sheets).
-- Removed duplicates using Data Cleanup (Google Sheets).
-- Saved as final_cleaned_interactions.csv (Google Sheets) 
+- Removed unnecessary columns (e.g., “Unnamed: 4”).
+- Renamed user_id to Customer ID, product_id to Product ID.
+- Handled missing values: Replaced blanks in Interaction Type with “unknown”; removed rows missing Customer ID or Product ID.
+- Standardized Timestamp using TRIM(); converted to date-time.
+- Removed duplicates using Data Cleanup.
+- Saved as final_cleaned_interactions.csv.
 
 **Customer Details:**
-- Cleaned customer_id: Removed spaces with TRIM(); removed duplicates (Google Sheets).
-- Validated Age: Replaced missing/unrealistic values with median or “Unknown” (Google Sheets).
-- Standardized Gender: Unified to “Male”/“Female”; filled missing with “Unknown” (Google Sheets).
-- Ensured numeric purchase data using text-to-columns (Google Sheets).
-- Saved as final_cleaned_customer_details.csv (Google Sheets).
+- Cleaned customer_id: Removed spaces with TRIM(); removed duplicates.
+- Validated Age: Replaced missing/unrealistic values with median or “Unknown”.
+- Standardized Gender: Unified to “Male”/“Female”; filled missing with “Unknown”.
+- Ensured numeric purchase data using text-to-columns.
+- Saved as final_cleaned_customer_details.csv.
 
 **Product Details:**
-- Resolved encoding: Saved product details x.xlsx as UTF-8 CSV (Excel).
+- Resolved encoding: Saved product details x.xlsx as UTF-8 CSV.
 - Trimmed text columns (e.g., product_name, category) with CLEAN(TRIM()) (Excel) and str.strip() (Python).
-- Dropped redundant columns (category, product_dimensions, category_level5+) (Python).
-- Cleaned selling_price: Removed “$”; averaged ranges; converted to float (Python).
-- Cleaned shipping_weight: Extracted numbers; converted to pounds; made float (Python).
-- Parsed product_dimensions into length, width, height (Python).
-- Standardized is_amazon_seller to boolean (Excel: =IF(cell="true",1,0); Python: mapped to True/False).
-- Handled missing values: Filled categoricals with “No [column name]”; imputed numerics with category-specific medians; dropped rows missing selling_price or category_level1 (Python).
-- Removed duplicate unique_id (Excel, Python).
-- Saved as final_cleaned_product_details.csv (~9,500 rows, ~19 columns) using clean_product_details_csv_custom.py (Python).
+- Dropped redundant columns (e.g., category, product_dimensions).
+- Cleaned selling_price: Removed “$”; averaged ranges; converted to float.
+- Cleaned shipping_weight: Extracted numbers; converted to pounds; made float.
+- Parsed product_dimensions into length, width, height.
+- Standardized is_amazon_seller to boolean.
+- Handled missing values: Filled categoricals with “No [column name]”; imputed numerics with category-specific medians; dropped rows missing selling_price or category_level1.
+- Removed duplicate unique_id.
+- Saved as final_cleaned_producct_details.csv. (~9,500 rows, ~19 columns).
 
 **Merge:**
-- Loaded cleaned CSVs using pandas (Python).
-- Renamed columns for consistency: user_id, customer_id, unique_id to Customer ID or Product ID (Python).
-- Merged Sales with Products on Product ID (left join), then with Customers on Customer ID (left join) (Python).
-- Handled missing values: Dropped critical missing rows; filled categoricals with “Unknown”; imputed numerics with medians (Python).
-- Saved as merged_data.csv and merged_data.xlsx using merge_ecommerce_datasets_excel.py (Python).
+- Loaded cleaned CSVs using pandas.
+- Merged Sales with Products on Product ID (left join), then with Customers on Customer ID (left join).
+- Handled missing values: Dropped critical missing rows; filled categoricals with “Unknown”; imputed numerics with medians.
+- Saved as merged_data.csv (~2,800 rows, ~40 columns) and merged_data.xlsx.
 
-**Key Findings**:
-- Sales Data: Filtered to ~2,800 purchase records; no duplicates; standardized Timestamp and names.
-- Customer Details: ~2,900 unique Customer ID; valid Age (18–80); consistent Gender.
-- Product Details: ~9,500 rows; ~19 columns; numeric selling_price (~$5–$500), shipping_weight, length, width, height; minimal missing values
-- Merged Dataset: merged_data.csv (~2,800 rows, ~40 columns) ready for analysis.
+**Challenges:**
+- ~60% missing Timestamp values, limiting time-based analysis.
+- Non-numeric formats in selling_price and shipping_weight.
+- Solution: Dropped Timestamp, filled missing categoricals with “Unknown,” converted to numeric formats.
+- Outputs: final_cleaned_interactions.csv, final_cleaned_customer_details.csv, final_cleaned_product_details.csv, merged_data.csv, merged_data.xlsx.
 
-**Tools Used**: Google Sheets, Excel, Python (pandas, openpyxl), Jupyter Notebook.
+**Analyze**
 
+**Exploratory Data Analysis (EDA):**
+- Loaded merged_data.xlsx using pandas in analysis.ipynb.
+- Converted time_stamp to datetime (though excluded due to missingness).
+- Explored dataset: shape (2,950 rows, 40 columns), columns (e.g., Customer ID, Purchase Amount (USD), product_name, Age, Gender, location, discount_applied, promo_code_used, subscription_status), data types, missing values (~1% in critical columns, ~60% in Timestamp), and 22 unique category_level1 values (e.g., Toys & Games, Clothing, Unknown).
+- Summary statistics: Average selling_price ~$30, Purchase Amount (USD) ~$59, Age ~44.
+- Planned visualizations: Histograms for Age, selling_price; bar plots for category_level1.
 
-## Step 2: Exploratory Data Analysis (EDA)
+**Deeper Analysis:**
+- Dropped rows with missing critical columns (selling_price, purchase_amount(usd), product_name, category_level1, age, gender, location, discount_applied, promo_code_used, subscription_status).
+- Calculated revenue (purchase_amount(usd)) by:
+- Products: Top 10 (product_name).
+- Categories: Top 5 (category_level1).
+- Customer segments: Age groups (<25, 25–34, 35–44, 45+), gender, top 5 location.
+- Discounts: discount_applied, promo_code_used, subscription_status (avg purchase amount, frequency).
+- Generated bar plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png, location_revenue.png, discount_revenue.png, frequency_revenue.png.
+- Saved summaries: product_summary.csv, category_summary.csv, age_summary.csv, gender_summary.csv, location_summary.csv, discount_summary.csv, frequency_summary.csv.
 
-**Objective**: Understand the structure, quality, and key characteristics of the merged e-commerce dataset to prepare for further analysis.
-
-**Dataset**: merged_data.csv (~3,000 rows, 40 columns), combining Sales, Customer, and Product Details.
-
-**Process**:
-- Loaded merged_data.csv using pandas.
-- Converted time_stamp to Timestamp (datetime format) for time-based analysis.
-- Explored dataset shape, columns, data types, missing values, summary statistics, and unique product categories.
-- Identified high missingness in Timestamp; planned to drop or impute in further analysis.
-- Saved merged_data.xlsx for Excel and Tableau analysis.
-
-**Key Findings**:
-- Shape: 2,950 rows, 40 columns.
-- **Columns**: Includes Customer ID, Product ID, selling_price, Purchase Amount (USD), product_name, category_level1, Age, Gender, Timestamp, item_purchased, category, location, size, season, review_rating, subscription_status, shipping_type, discount_applied, promo_code_used, previous_purchases, payment_method, frequency_of_purchases, etc.
-- **Missing values**: ~1% in Customer ID, Product ID, selling_price, product_name, category_level1; ~2% in Age, Gender; ~60% in Timestamp; minimal in others.
-- **Categories:** 22 unique category_level1 values: Sports & Outdoors, Clothing, Shoes & Jewelry, Toys & Games, Health & Household, Baby Products, Home & Kitchen, Arts, Crafts & Sewing, Pet Supplies, Office Products, Hobbies, Patio, Lawn & Garden, Grocery & Gourmet Food, Beauty & Personal Care, Industrial & Scientific, Tools & Home Improvement, Video Games, Remote & App Controlled Vehicle Parts, Automotive, Remote & App Controlled Vehicles & Parts, Electronics, Musical Instruments, Unknown (to be addressed in further cleaning).
-- **Summary Statistics:** Average selling_price ~$30, Purchase Amount (USD) ~$59, Age ~44.
-- **Planned Visualizations:** Histograms for Age, selling_price; bar plots for category_level1 to explore distributions.
-
-**Tools Used**: Python (pandas, numpy), Jupyter Notebook.
-
-## Step 3: Deeper Analysis
-
-**Objective:** Analyze top products and categories by revenue, and explore customer segments by age, gender, and location to identify sales drivers.
-
-**Dataset:** merged_data.csv (~2,950 rows, 40 columns), combining Sales, Customer, and Product Details.
-
-**Process:**
-Loaded merged_data.csv using pandas.
-Dropped rows with missing selling_price, purchase_amount(usd), product_name, category_level1, age, gender, or location.
-Calculated total revenue (purchase_amount(usd)) by:
-Product (product_name): Top 10 products.
-Category (category_level1): Top 5 categories.
-Customer segments: Age groups (<25, 25–34, 35–44, 45+), gender, and top 5 location.
-Generated bar plots for top products, categories, age groups, gender, and locations.
-Saved results as product_summary.csv, category_summary.csv, age_summary.csv, gender_summary.csv, and location_summary.csv, and plots as PNGs.
+**Answered Questions:**
+- Which products and categories generate the most revenue? (Top products/categories identified.)
+- Which customer segments contribute the most to revenue? (Age, gender, location analyzed.)
+- Do discounts or subscription status increase purchase amounts or repeat purchases? (No significant increase; avg purchase amounts range from $58.96 to $60.05, frequency is 1.0 across all groups.)
+- How does customer age influence purchasing patterns for top categories? (45+ drive Toys & Games.)
+- Which regions show potential for targeted marketing? (Even distribution suggests broad reach.)
 
 **Key Findings:**
-
-**Top Products:** Wildkin Microfiber Nap Mat with Pillow for Toddler Boys and Girls, Perfect Size for Daycare and Preschool, Designed to Fit on a Standard Cot, Patterns Coordinate with Our Lunch Boxes and Backpacks :$150, Rubie's Women's Batman v Superman: Dawn of Justice Wonder Woman Costume Top : $136, Ceaco Perfect Piece Count Puzzle - Thomas Kinkade Disney Dreams Collection - Beauty and the Beast : $126, Childrens Christmas Bunny Jumper : $100, Fisher-Price #Selfie Fun Phone, Baby Rattle, Mirror and Teething Toy :$100, DC Comics Multiverse DC Rebirth the Ray Figure : $100, Random Esoteric Creature Generator for Classic Fantasy Rpgs & Their Modern Simulacra : $100, Batgirl Child Costume in Pink : $100, Creative Converting 991199 Graduation Cap Cutouts, One Size, Black : $100, Amscan Suspenders, Party Accessory, Rainbow : $100. 
-Top Categories: Toys & Games : $123165, Unknown : $16395, Clothing, Shoes & Jewelry : $10489, Home & Kitchen : $9713, Sports & Outdoors : $6657.
+- Top Products: Wildkin Microfiber Nap Mat: $150, Rubie's Women's Batman Costume Top: $136, Ceaco Puzzle: $126, Childrens Christmas Bunny Jumper: $100, Fisher-Price #Selfie Fun Phone: $100.
+- Top Categories: Toys & Games: $123,165, Unknown: $16,395, Clothing, Shoes & Jewelry: $10,489, Home & Kitchen: $9,713, Sports & Outdoors: $6,657.
 
 **Customer Segments:**
-- **Age Groups:** <25 : $18772, 25-34 : $35381, 35-44 : $33328, 45+ : $88500.
-- **Gender:** Female : $20704, Male : $155277. 
-- **Location:** West Virginia : $4259, Idaho : $4215, California : $4157, Illinois : $4137, Nevada : $4120. 
+- Age Groups: <25: $18,772, 25–34: $35,381, 35–44: $33,328, 45+: $88,500.
+- Gender: Female: $20,704, Male: $155,277.
+- Location: West Virginia: $4,259, Idaho: $4,215, California: $4,157, Illinois: $4,137, Nevada: $4,120.
+- Discounts/Subscriptions (Based on discount_summary.csv and frequency_summary.csv):
+- Average purchase amounts: $60.05 (no discount, no promo, not subscribed), $58.96 (discount and promo, not subscribed), $59.57 (discount, promo, and subscribed).
+- Total revenue: $78,241 (no discount, no promo, not subscribed), $36,086 (discount and promo, not subscribed), $61,654 (discount, promo, and subscribed).
+- Purchase counts: 1,303 (no discount, no promo, not subscribed), 612 (discount and promo, not subscribed), 1,035 (discount, promo, and subscribed).
+- Average purchase frequency: 1.0 across all groups.
 
-**Insights**
-- Toys & Games is the dominant category, generating over 70% of total revenue, indicating strong demand for toys and games. The business should prioritize inventory and marketing for this category.
+**Insights:**
+- Toys & Games dominates (~70% of revenue); prioritize inventory/marketing.
+- 45+ customers and males drive most revenue, likely for Toys & Games; target older males.
+- Customers aged 45+ likely drive Toys & Games purchases, suggesting family-oriented buying.
+- Males contribute ~90% of revenue; explore female-targeted products (e.g., clothing).
+- Discounts and subscriptions show no significant increase in average purchase amounts ($58.96–$60.05) or purchase frequency (1.0 across all groups), possibly due to data limitations (e.g., no repeat purchases) or the need to isolate discount_applied and subscription_status effects.
+- “Unknown” category (9% of revenue) includes products with missing category_level1 labels, likely spanning multiple categories, skewing insights; requires reclassification in Step 3.
+- Evenly distributed location revenue suggests broad market reach; consider regional promotions.
 
-- Customers aged 45+ drive the majority of revenue, likely purchasing toys for younger family members. Marketing campaigns targeting older adults (e.g., parents, grandparents) could boost sales.
+**Challenges:**
+- ValueError: All arrays must be of the same length when combining product and category summaries.
+  Solution: Created separate CSVs for each summary.
+- KeyError due to incorrect column names (e.g., Purchase Amount (USD) vs. purchase_amount(usd)).
+  Solution: Standardized column names in code.
+- ~60% missing Timestamp limited time-based analysis; focused on static metrics.
+- “Unknown” category’s $16,395 revenue indicates missing labels across multiple categories.
+  Solution: Noted for reclassification in Step 3 (e.g., via product_name analysis)
+- FileNotFoundError for merged_data.csv due to incorrect file format.
+ Solution: Updated to load merged_data.xlsx with openpyxl.
+- Uniform purchase frequency (1.0) suggests data may not capture repeat purchases.
+ Solution: Noted for further investigation in Step 3.
 
-- Males account for nearly 90% of revenue, suggesting products or marketing may appeal more to male customers. Exploring female-targeted products (e.g., clothing, jewelry) could diversify the customer base.
+Outputs: analysis.ipynb, product_summary.csv, category_summary.csv, age_summary.csv, gender_summary.csv, location_summary.csv, discount_summary.csv, frequency_summary.csv, top_products.png, top_categories.png, age_revenue.png, gender_revenue.png, location_revenue.png, discount_revenue.png, frequency_revenue.png.
 
-- The significant revenue from the “Unknown” category indicates data quality issues that need resolution to improve analysis accuracy.
+**Repository Structure**
 
-- Revenue is evenly distributed across locations, suggesting a broad market reach. Targeted regional promotions may further increase sales.
+- analysis.ipynb: EDA and deeper analysis code and findings.
+- merge_ecommerce_datasets_excel.ipynb: Dataset merging code.
+- merged_data.csv: Merged dataset (CSV version).
+- merged_data.xlsx: Merged dataset (Excel version).
+- final_cleaned_interactions.csv: Cleaned Sales data.
+- final_cleaned_customer_details.csv: Cleaned Customer data.
+- final_cleaned_product_details.csv: Cleaned Product data.
+- product_summary.csv: Top 5 products by revenue.
+- category_summary.csv: Top 5 categories by revenue.
+- age_summary.csv: Revenue by age group.
+- gender_summary.csv: Revenue by gender.
+- location_summary.csv: Top 5 locations by revenue.
+- discount_summary.csv: Purchase amount by discount/subscription status.
+- frequency_summary.csv: Purchase frequency by discount/subscription status.
+- data_cleaning.md: Data cleaning process.
+- step2_analysis.md: Deeper analysis summary
+Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png, location_revenue.png, discount_revenue.png, frequency_revenue.png.
 
-**Data Note:** Excluded Timestamp due to ~60% missing values; focused on non-time-based metrics.
+**Tools Used**
 
-**Tools Used:** Python (pandas, numpy, matplotlib, seaborn), Jupyter Notebook.
-
-**Outputs:**
-product_summary.csv: Top 5 products by revenue.
-category_summary.csv: Top 5 categories by revenue.
-age_summary.csv: Revenue by age group.
-gender_summary.csv: Revenue by gender.
-location_summary.csv: Top 5 locations by revenue.
-Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png, location_revenue.png.
-
-
-
-
-
-
-
-
-
-
+- Python: pandas, numpy, matplotlib, seaborn, openpyxl (for cleaning, EDA, analysis).
+- Jupyter Notebook: For code execution.
+- Google Sheets: For initial Sales and Customer cleaning.
+- Excel: For Product cleaning and dataset verification.
+- Tableau: Planned for Step 3 visualizations.
