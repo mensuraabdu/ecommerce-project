@@ -1,0 +1,4 @@
+Discount Applied,Promo Code Used,Subscription Status,Avg Purchase Frequency
+False,False,False,1.0
+True,True,False,1.0
+True,True,True,1.0
