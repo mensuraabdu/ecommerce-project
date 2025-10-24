@@ -9,6 +9,7 @@
 - Product Details (product details x.xlsx, ~10,002 rows, ~24 columns: unique_id, product_name, selling_price, etc.).
 
 **Process**:
+
 **Sales Data:**
 - Filtered for Interaction Type = purchase (Google Sheets).
 - Removed unnecessary columns (e.g., “Unnamed: 4”) (Google Sheets).
@@ -75,6 +76,7 @@
 - **Planned Visualizations:** Histograms for Age, selling_price; bar plots for category_level1 to explore distributions.
 
 **Tools Used**: Python (pandas, numpy), Jupyter Notebook.
+
 
 
 
