@@ -77,7 +77,7 @@
 
 **Tools Used**: Python (pandas, numpy), Jupyter Notebook.
 
-**Step 3: Deeper Analysis**
+## Step 3: Deeper Analysis
 
 **Objective:** Analyze top products and categories by revenue, and explore customer segments by age, gender, and location to identify sales drivers.
 
@@ -125,6 +125,7 @@ age_summary.csv: Revenue by age group.
 gender_summary.csv: Revenue by gender.
 location_summary.csv: Top 5 locations by revenue.
 Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png, location_revenue.png.
+
 
 
 
