@@ -4,51 +4,51 @@
 **Objective**: Clean and standardize Sales, Customer, and Product datasets to produce a unified merged_data.csv for analysis.
 
 **Dataset**:
-Sales Data (~3,000 rows, columns: user_id, product_id, Interaction Type, Timestamp, etc.).
-Customer Details (~3,000 rows, ~18 columns: customer_id, Age, Gender, Location, etc.).
-Product Details (product details x.xlsx, ~10,002 rows, ~24 columns: unique_id, product_name, selling_price, etc.).
+- Sales Data (~3,000 rows, columns: user_id, product_id, Interaction Type, Timestamp, etc.).
+- Customer Details (~3,000 rows, ~18 columns: customer_id, Age, Gender, Location, etc.).
+- Product Details (product details x.xlsx, ~10,002 rows, ~24 columns: unique_id, product_name, selling_price, etc.).
 
 **Process**:
 Sales Data:
-Filtered for Interaction Type = purchase (Google Sheets).
-Removed unnecessary columns (e.g., “Unnamed: 4”) (Google Sheets).
-Renamed user_id to Customer ID, product_id to Product ID (Google Sheets).
-Handled missing values: Replaced blanks in Interaction Type with “unknown”; removed rows missing Customer ID or Product ID (Google Sheets).
-Standardized Timestamp: Removed spaces with TRIM(); converted to date-time (Google Sheets).
-Removed duplicates using Data Cleanup (Google Sheets).
-Saved as final_cleaned_interactions.csv (Google Sheets) 
+- Filtered for Interaction Type = purchase (Google Sheets).
+- Removed unnecessary columns (e.g., “Unnamed: 4”) (Google Sheets).
+- Renamed user_id to Customer ID, product_id to Product ID (Google Sheets).
+- Handled missing values: Replaced blanks in Interaction Type with “unknown”; removed rows missing Customer ID or Product ID (Google Sheets).
+- Standardized Timestamp: Removed spaces with TRIM(); converted to date-time (Google Sheets).
+- Removed duplicates using Data Cleanup (Google Sheets).
+- Saved as final_cleaned_interactions.csv (Google Sheets) 
 
 Customer Details:
-Cleaned customer_id: Removed spaces with TRIM(); removed duplicates (Google Sheets).
-Validated Age: Replaced missing/unrealistic values with median or “Unknown” (Google Sheets).
-Standardized Gender: Unified to “Male”/“Female”; filled missing with “Unknown” (Google Sheets).
-Ensured numeric purchase data using text-to-columns (Google Sheets).
-Saved as final_cleaned_customer_details.csv (Google Sheets).
+- Cleaned customer_id: Removed spaces with TRIM(); removed duplicates (Google Sheets).
+- Validated Age: Replaced missing/unrealistic values with median or “Unknown” (Google Sheets).
+- Standardized Gender: Unified to “Male”/“Female”; filled missing with “Unknown” (Google Sheets).
+- Ensured numeric purchase data using text-to-columns (Google Sheets).
+- Saved as final_cleaned_customer_details.csv (Google Sheets).
 
 Product Details:
-Resolved encoding: Saved product details x.xlsx as UTF-8 CSV (Excel).
-Trimmed text columns (e.g., product_name, category) with CLEAN(TRIM()) (Excel) and str.strip() (Python).
-Dropped redundant columns (category, product_dimensions, category_level5+) (Python).
-Cleaned selling_price: Removed “$”; averaged ranges; converted to float (Python).
-Cleaned shipping_weight: Extracted numbers; converted to pounds; made float (Python).
-Parsed product_dimensions into length, width, height (Python).
-Standardized is_amazon_seller to boolean (Excel: =IF(cell="true",1,0); Python: mapped to True/False).
-Handled missing values: Filled categoricals with “No [column name]”; imputed numerics with category-specific medians; dropped rows missing selling_price or category_level1 (Python).
-Removed duplicate unique_id (Excel, Python).
-Saved as final_cleaned_product_details.csv (~9,500 rows, ~19 columns) using clean_product_details_csv_custom.py (Python).
+- Resolved encoding: Saved product details x.xlsx as UTF-8 CSV (Excel).
+- Trimmed text columns (e.g., product_name, category) with CLEAN(TRIM()) (Excel) and str.strip() (Python).
+- Dropped redundant columns (category, product_dimensions, category_level5+) (Python).
+- Cleaned selling_price: Removed “$”; averaged ranges; converted to float (Python).
+- Cleaned shipping_weight: Extracted numbers; converted to pounds; made float (Python).
+- Parsed product_dimensions into length, width, height (Python).
+- Standardized is_amazon_seller to boolean (Excel: =IF(cell="true",1,0); Python: mapped to True/False).
+- Handled missing values: Filled categoricals with “No [column name]”; imputed numerics with category-specific medians; dropped rows missing selling_price or category_level1 (Python).
+- Removed duplicate unique_id (Excel, Python).
+- Saved as final_cleaned_product_details.csv (~9,500 rows, ~19 columns) using clean_product_details_csv_custom.py (Python).
 
 Merge:
-Loaded cleaned CSVs using pandas (Python).
-Renamed columns for consistency: user_id, customer_id, unique_id to Customer ID or Product ID (Python).
-Merged Sales with Products on Product ID (left join), then with Customers on Customer ID (left join) (Python).
-Handled missing values: Dropped critical missing rows; filled categoricals with “Unknown”; imputed numerics with medians (Python).
-Saved as merged_data.csv and merged_data.xlsx using merge_ecommerce_datasets_excel.py (Python).
+- Loaded cleaned CSVs using pandas (Python).
+- Renamed columns for consistency: user_id, customer_id, unique_id to Customer ID or Product ID (Python).
+- Merged Sales with Products on Product ID (left join), then with Customers on Customer ID (left join) (Python).
+- Handled missing values: Dropped critical missing rows; filled categoricals with “Unknown”; imputed numerics with medians (Python).
+- Saved as merged_data.csv and merged_data.xlsx using merge_ecommerce_datasets_excel.py (Python).
 
 **Key Findings**:
-Sales Data: Filtered to ~2,800 purchase records; no duplicates; standardized Timestamp and names.
-Customer Details: ~2,900 unique Customer ID; valid Age (18–80); consistent Gender.
-Product Details: ~9,500 rows; ~19 columns; numeric selling_price (~$5–$500), shipping_weight, length, width, height; minimal missing values
-Merged Dataset: merged_data.csv (~2,800 rows, ~40 columns) ready for analysis.
+- Sales Data: Filtered to ~2,800 purchase records; no duplicates; standardized Timestamp and names.
+- Customer Details: ~2,900 unique Customer ID; valid Age (18–80); consistent Gender.
+- Product Details: ~9,500 rows; ~19 columns; numeric selling_price (~$5–$500), shipping_weight, length, width, height; minimal missing values
+- Merged Dataset: merged_data.csv (~2,800 rows, ~40 columns) ready for analysis.
 
 **Tools Used**: Google Sheets, Excel, Python (pandas, openpyxl), Jupyter Notebook.
 
@@ -77,6 +77,9 @@ Merged Dataset: merged_data.csv (~2,800 rows, ~40 columns) ready for analysis.
  'Remote & App Controlled Vehicles & Parts' 'Electronics'
  'Musical Instruments']
 - Summary Stats: Average selling_price ~$30, Purchase Amount (USD) ~$59, Age ~44
+
+**Tools Used**: Python (pandas, numpy), Jupyter Notebook
+
 
 
 
