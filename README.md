@@ -158,3 +158,10 @@ Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png
 - Google Sheets: For initial Sales and Customer cleaning.
 - Excel: For Product cleaning and dataset verification.
 - Tableau: Planned for Step 3 visualizations.
+
+## Share – Tableau Dashboard
+- Created interactive dashboard in **Tableau Public** using `merged_data.xlsx` with 6 visualizations (Treenao, Bar, Pie, Map).  
+- Removed Frequency chart (all values = 1.0) and summarized as insight.  
+- Added KPI cards, title, and key insights directly on dashboard.  
+- Exported as `.twb` (editable) and `.png` (presentation).  
+
