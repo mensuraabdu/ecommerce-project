@@ -163,5 +163,25 @@ Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png
 - Created interactive dashboard in **Tableau Public** using `merged_data.xlsx` with 6 visualizations (Treenao, Bar, Pie, Map).  
 - Removed Frequency chart (all values = 1.0) and summarized as insight.  
 - Added KPI cards, title, and key insights directly on dashboard.  
-- Exported as `.twb` (editable) and `.png` (presentation).  
+- Exported as `.twb` (editable) and `.png` (presentation).
+
+## Act
+
+## Key Findings
+1. **Toys & Games** = **70%** of total revenue ($123,165)  
+2. **45+ age group** drives **50%** ($88,500) — **90% male**  
+3. **Discounts reduce** avg order value: **$60.05 → $58.96**  
+4. **No repeat purchases** (frequency = 1.0)
+
+## Recommendations
+| Action | Impact |
+|-------|--------|
+| **Increase Toys & Games inventory** | Capture 70% revenue segment |
+| **Target 45+ males** via Facebook/YouTube ads | Reach high-value customers |
+| **Re-evaluate discount strategy** | Prevent $1.09 loss per order |
+| **Collect customer ID** in future data | Enable repeat purchase tracking |
+
+**Prepared by: [Mensura Abdo]**  
+**Date: October 27, 2025**
+
 
