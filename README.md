@@ -1,10 +1,13 @@
 **E-Commerce Revenue Analysis - Google Data Analytics Capstone**
 This repository contains my Google Data Analytics Capstone project, analyzing e-commerce data to identify key revenue drivers for marketing and inventory strategies, following the Ask, Prepare, Process, Analyze, Share, and Act framework.
+
 **Project Overview**
 The project analyzes a merged e-commerce dataset (~2,950 rows, 40 columns) combining Sales, Customer, and Product Details to answer specific business questions and provide actionable insights.
 
 **Ask**
+
 Business Problem: Identify key drivers of e-commerce revenue to optimize inventory, marketing, and sales strategies.
+
 **Problem Questions:**
 - Which products and categories generate the most revenue?
 - Which customer segments (age, gender, location) contribute the most to revenue?
@@ -25,6 +28,7 @@ Business Problem: Identify key drivers of e-commerce revenue to optimize invento
 - Solution: Standardized to Customer ID and Product ID using Python.
 
 **Process**
+
 -**Data Cleaning:**
 
 - **Sales Data:**
@@ -183,6 +187,7 @@ Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png
 
 **Prepared by: Mensura Abdo**  
 **Date: October 27, 2025**
+
 
 
 
