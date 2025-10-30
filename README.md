@@ -181,8 +181,9 @@ Plots: top_products.png, top_categories.png, age_revenue.png, gender_revenue.png
 | **Re-evaluate discount strategy** | Prevent $1.09 loss per order |
 | **Collect customer ID** in future data | Enable repeat purchase tracking |
 
-**Prepared by:Mensura Abdo**  
+**Prepared by: Mensura Abdo**  
 **Date: October 27, 2025**
+
 
 
 
